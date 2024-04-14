@@ -29,7 +29,7 @@ package soundedit {
 	import flash.display.*;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.events.SampleDataEvent;
+	//import flash.events.SampleDataEvent;
 	import flash.geom.Point;
 	import flash.media.*;
 	import flash.text.*;
@@ -46,7 +46,7 @@ public class WaveformView extends Sprite implements DragClient {
 	private const waveformColor:int = 0x303030;
 	private const playCursorColor:int = 0x0000FF;
 
-	private static var PasteBuffer:Vector.<int> = new Vector.<int>();
+	//private static var PasteBuffer:Vector.<int> = new Vector.<int>();
 
 	private var targetSound:ScratchSound;
 
@@ -58,9 +58,9 @@ public class WaveformView extends Sprite implements DragClient {
 	private var soundsPart:SoundsPart;
 	private var editor:SoundEditor;
 
-	private var samples:Vector.<int> = new Vector.<int>();
+	//private var samples:Vector.<int> = new Vector.<int>();
 	private var samplingRate:int = 22050;
-	private var condensedSamples:Vector.<int> = new Vector.<int>();
+	//private var condensedSamples:Vector.<int> = new Vector.<int>();
 	private var samplesPerCondensedSample:int = 32;
 
 	private var scrollStart:int;	// first visible condensedSample
@@ -111,11 +111,11 @@ public class WaveformView extends Sprite implements DragClient {
 		targetSound = snd;
 		samplingRate = snd.rate;
 		if (snd.editorData) {
-			samples = snd.editorData.samples;
-			condensedSamples = snd.editorData.condensedSamples;
+			//samples = snd.editorData.samples;
+			//condensedSamples = snd.editorData.condensedSamples;
 			samplesPerCondensedSample = snd.editorData.samplesPerCondensedSample;
 		} else {
-			samples = targetSound.getSamples();
+			//samples = targetSound.getSamples();
 			adjustTimeScale();
 			initEditorData();
 		}
@@ -125,30 +125,30 @@ public class WaveformView extends Sprite implements DragClient {
 
 	private function initEditorData():void {
 		// Set the initial editor data for this sound.
-		targetSound.editorData = {
+		/* targetSound.editorData = {
 			samples: samples,
 			condensedSamples: condensedSamples,
 			samplesPerCondensedSample: samplesPerCondensedSample,
 			undoList: [],
 			undoIndex: 0
-		}
+		} */
 	}
 
 	/* Scrolling */
 
 	public function setScroll(n:Number):void {
 		// Called when the scrollbar is dragged. Range of n is 0..1.
-		var maxScroll:int = Math.max(0, condensedSamples.length - frame.width);
-		scrollStart = clipTo(n * maxScroll, 0, maxScroll);
+		/*var maxScroll:int = Math.max(0, condensedSamples.length - frame.width);
+		scrollStart = clipTo(n * maxScroll, 0, maxScroll);*/
 		drawWave();
 	}
 
 	private function scrollTo(condensedIndex:int):void {
 		// Used internally. Updates the scrollbar.
-		var maxScroll:int = Math.max(0, condensedSamples.length - frame.width);
+		/*var maxScroll:int = Math.max(0, condensedSamples.length - frame.width);
 		scrollStart = clipTo(condensedIndex, 0, maxScroll);
-		editor.scrollbar.update(scrollStart / maxScroll, frame.width / condensedSamples.length);
-		drawWave();
+		//editor.scrollbar.update(scrollStart / maxScroll, frame.width / condensedSamples.length);
+		drawWave();*/
 	}
 
 	/* Time Scale */
@@ -158,14 +158,14 @@ public class WaveformView extends Sprite implements DragClient {
 
 	private function adjustTimeScale():void {
 		// select a time scale
-		var secs:Number = samples.length / samplingRate;
+		/*var secs:Number = samples.length / samplingRate;
 		var n:int = 512;
 		if (secs <= 120) n = 256;
 		if (secs <= 30) n = 128;
 		if (secs <= 10) n = 64;
 		if (secs <= 2) n = 32;
 		samplesPerCondensedSample = 0; // force setCondensation() to recompute
-		setCondensation(n);
+		setCondensation(n);*/
 	}
 
 	private function setCondensation(n:int):void {
@@ -180,7 +180,7 @@ public class WaveformView extends Sprite implements DragClient {
 	}
 
 	private function computeCondensedSamples():void {
-		condensedSamples = new Vector.<int>();
+		/*condensedSamples = new Vector.<int>();
 		var level:int, n:int;
 		for (var i:int = 0; i < samples.length; i++) {
 			var v:int = samples[i];
@@ -192,7 +192,7 @@ public class WaveformView extends Sprite implements DragClient {
 			}
 		}
 		// level for the leftover samples when samples length is not an exact multiple of samplesPerCondensedSample
-		if (n > 0) condensedSamples.push(level);
+		if (n > 0) condensedSamples.push(level);*/
 	}
 
 	/* Drawing */
@@ -223,7 +223,7 @@ public class WaveformView extends Sprite implements DragClient {
 	}
 
 	private function drawSamples(g:Graphics):void {
-		if (condensedSamples.length == 0) return; // no samples
+		/*if (condensedSamples.length == 0) return; // no samples
 		var h:int = frame.height - 2;
 		var scale:Number = (h / 2) / 32768;
 		var center:int = (h / 2) + 1;
@@ -248,7 +248,7 @@ public class WaveformView extends Sprite implements DragClient {
 				i++;
 			}
 		}
-		g.endFill();
+		g.endFill();*/
 	}
 
 	private function clipTo(n:Number, low:Number, high:Number):Number {
@@ -262,7 +262,7 @@ public class WaveformView extends Sprite implements DragClient {
 	/* Recording */
 
 	private var mic:Microphone;
-	private var recordSamples:Vector.<int> = new Vector.<int>();
+	//private var recordSamples:Vector.<int> = new Vector.<int>();
 
 	public function stopAll(ignore:* = null):void {
 		stopPlaying();
@@ -271,7 +271,7 @@ public class WaveformView extends Sprite implements DragClient {
 	}
 
 	public function toggleRecording(ignore:* = null):void {
-		if (isRecording()) {
+		/*if (isRecording()) {
 			stopRecording();
 		} else {
 			stopAll();
@@ -282,21 +282,21 @@ public class WaveformView extends Sprite implements DragClient {
 			}
 		}
 		editor.updateIndicators();
-		drawWave();
+		drawWave();*/
 	}
 
-	public function isRecording():Boolean { return recordSamples != null }
+	public function isRecording():Boolean { return false }
 
 	private function stopRecording():void {
-		if (mic) mic.removeEventListener(SampleDataEvent.SAMPLE_DATA, recordData);
+		/*if (mic) mic.removeEventListener(SampleDataEvent.SAMPLE_DATA, recordData);
 		editor.levelMeter.clear();
 		if (recordSamples && (recordSamples.length > 0)) appendRecording(recordSamples);
 		recordSamples = null;
 		editor.updateIndicators();
-		drawWave();
+		drawWave();*/
 	}
 
-	private function recordData(evt:SampleDataEvent):void {
+	/*private function recordData(evt:SampleDataEvent):void {
 		var peak:Number = 0;
 		while (evt.data.bytesAvailable) {
 			var sample:Number = evt.data.readFloat();
@@ -304,9 +304,9 @@ public class WaveformView extends Sprite implements DragClient {
 			recordSamples.push(sample * 32767);
 		}
 		editor.levelMeter.setLevel(100 * peak);
-	}
+	}*/
 
-	private function appendRecording(newSamples:Vector.<int>):void {
+	/*private function appendRecording(newSamples:Vector.<int>):void {
 		// Insert the given samples.
 		var insertionPoint:int = ((selectionStart == 0) && ((selectionEnd - selectionStart) < 5)) ? 0 : selectionEnd;
 		var before:Vector.<int> = extract(0, insertionPoint);
@@ -315,7 +315,7 @@ public class WaveformView extends Sprite implements DragClient {
 		selectionStart = before.length / samplesPerCondensedSample;
 		selectionEnd = (before.length + newSamples.length) / samplesPerCondensedSample;
 		scrollTo(selectionStart);
-	}
+	}*/
 
 	private function openMicrophone():void {
 		mic = Microphone.getMicrophone();
@@ -339,7 +339,8 @@ public class WaveformView extends Sprite implements DragClient {
 
 	public function startPlaying(ignore:* = null):void {
 		stopAll();
-		if (!samples || (samples.length == 0)) return;
+		return;
+		/*if (!samples || (samples.length == 0)) return;
 
 		playIndex = clipTo(selectionStart * samplesPerCondensedSample, 0, samples.length);
 		playEndIndex = clipTo(selectionEnd * samplesPerCondensedSample, 0, samples.length);
@@ -351,12 +352,12 @@ public class WaveformView extends Sprite implements DragClient {
 		playbackStarting = true;
 
 		var sound:Sound = new Sound();
-		sound.addEventListener(SampleDataEvent.SAMPLE_DATA, playBuffer);
+		//sound.addEventListener(SampleDataEvent.SAMPLE_DATA, playBuffer);
 		soundChannel = sound.play();
 		soundChannel.addEventListener(Event.SOUND_COMPLETE, stopPlaying);
 		playCursor.visible = true;
 		editor.updateIndicators();
-		drawWave();
+		drawWave();*/
 	}
 
 	public function isPlaying():Boolean { return soundChannel != null }
@@ -375,7 +376,7 @@ public class WaveformView extends Sprite implements DragClient {
 		else startPlaying();
 	}
 
-	private function playBuffer(evt:SampleDataEvent):void {
+	/*private function playBuffer(evt:SampleDataEvent):void {
 		// Fill the next sound buffer with samples. Write several copies of each each original
 		// sample to convert from lower original sampling rates (11025 or 22050) and mono->stereo.
 		// Note: This "cheap trick" of duplicating samples can also approximate imported sounds
@@ -399,50 +400,50 @@ public class WaveformView extends Sprite implements DragClient {
 			}
 			playbackStarting = false;
 		}
-	}
+	}*/
 
 	/* Editing Operations */
 
 	public function leftArrow():void {
-		if (selectionStart > 0) {
+		/*if (selectionStart > 0) {
 			selectionStart--;
 			selectionEnd--;
 			drawWave();
-		}
+		}*/
 	}
 
 	public function rightArrow():void {
-		if (selectionEnd < condensedSamples.length) {
+		/*if (selectionEnd < condensedSamples.length) {
 			selectionStart++;
 			selectionEnd++;
 			drawWave();
-		}
+		}*/
 	}
 
-	public function copy():void { PasteBuffer = extract(selectionStart, selectionEnd) }
+	public function copy():void { /*PasteBuffer = extract(selectionStart, selectionEnd)*/ }
 	public function cut():void { copy(); deleteSelection() }
 
 	public function deleteSelection(crop:Boolean = false):void {
-		if (crop) {
+		/*if (crop) {
 			updateContents(extract(selectionStart, selectionEnd));
 		} else {
 			updateContents(extract(0, selectionStart).concat(extract(selectionEnd)));
-		}
+		}*/
 	}
 
 	public function paste():void {
-		var before:Vector.<int> = extract(0, selectionStart);
+		/*var before:Vector.<int> = extract(0, selectionStart);
 		var after:Vector.<int> = extract(selectionEnd);
-		updateContents(before.concat(PasteBuffer).concat(after));
+		updateContents(before.concat(PasteBuffer).concat(after));*/
 	}
 
 	public function selectAll():void {
-		selectionStart = 0;
+		/*selectionStart = 0;
 		selectionEnd = Math.max(0, condensedSamples.length - 1);
-		drawWave();
+		drawWave();*/
 	}
 
-	private function extract(condensedStart:int, condensedEnd:int = -1):Vector.<int> {
+	/*private function extract(condensedStart:int, condensedEnd:int = -1):Vector.<int> {
 		// Answer a vector of samples spanning the given range of condensed samples.
 		// If condensedEnd is omitted, select from condensedStart to the end.
 		if (condensedEnd == -1) condensedEnd = condensedSamples.length;
@@ -475,12 +476,12 @@ public class WaveformView extends Sprite implements DragClient {
 			selectionEnd = selectionStart = clipTo(selectionStart, 0, end);
 		}
 		drawWave();
-	}
+	}*/
 
 	/* Effects */
 
 	public function applyEffect(effect:String, shiftKey:Boolean):void {
-		if (emptySelection()) return;
+		/*if (emptySelection()) return;
 		var before:Vector.<int> = extract(0, selectionStart);
 		var selection:Vector.<int> = extract(selectionStart, selectionEnd);
 		var after:Vector.<int> = extract(selectionEnd);
@@ -492,10 +493,10 @@ public class WaveformView extends Sprite implements DragClient {
 		case 'silence': silence(selection); break;
 		case 'reverse': reverse(selection); break;
 		}
-		updateContents(before.concat(selection).concat(after), true);
+		updateContents(before.concat(selection).concat(after), true);*/
 	}
 
-	private function fadeIn(buf:Vector.<int>):void {
+	/*private function fadeIn(buf:Vector.<int>):void {
 		var len:int = buf.length;
 		for (var i:int = 0; i < len; i++) buf[i] = (i / len) * buf[i];
 	}
@@ -531,21 +532,21 @@ public class WaveformView extends Sprite implements DragClient {
 		for (var i:int = 0; i < len; i++) {
 			buf[i] = tmp[(len - 1) - i];
 		}
-	}
+	}*/
 
 	/* Undo */
 
 	public function undo(ignore:* = null):void {
-		var data:Object = targetSound.editorData;
+		/*var data:Object = targetSound.editorData;
 		if (data.undoIndex == data.undoList.length) data.undoList.push([samples, condensedSamples, samplesPerCondensedSample]); // save current state for redo
 		if (data.undoIndex > 0) installUndoRecord(data.undoList[--data.undoIndex]);
-		soundsPart.refreshUndoButtons();
+		soundsPart.refreshUndoButtons();*/
 	}
 
 	public function redo(ignore:* = null):void {
-		var data:Object = targetSound.editorData;
+		/*var data:Object = targetSound.editorData;
 		if (data.undoIndex < (data.undoList.length - 1)) installUndoRecord(data.undoList[++data.undoIndex]);
-		soundsPart.refreshUndoButtons();
+		soundsPart.refreshUndoButtons();*/
 	}
 
 	public function canUndo():Boolean { return targetSound && targetSound.editorData.undoIndex > 0 }
@@ -553,19 +554,19 @@ public class WaveformView extends Sprite implements DragClient {
 
 	private function installUndoRecord(r:Array):void {
 		stopAll();
-		samples = r[0];
-		condensedSamples = r[1];
-		samplesPerCondensedSample = r[2];
+		//samples = r[0];
+		//condensedSamples = r[1];
+		//samplesPerCondensedSample = r[2];
 		selectionEnd = selectionStart = 0;
 		scrollTo(0);
 	}
 
 	private function recordForUndo():void {
-		var data:Object = targetSound.editorData;
+		/*var data:Object = targetSound.editorData;
 		if (data.undoList.length > data.undoIndex) data.undoList = data.undoList.slice(0, data.undoIndex);
 		data.undoList.push([samples, condensedSamples, samplesPerCondensedSample]);
 		data.undoIndex = data.undoList.length;
-		soundsPart.refreshUndoButtons();
+		soundsPart.refreshUndoButtons();*/
 	}
 
 	/* Mouse */
@@ -577,7 +578,7 @@ public class WaveformView extends Sprite implements DragClient {
 
 	public function dragBegin(evt:MouseEvent):void {
 		// Decide how to make or adjust the selection.
-		const close:int = 8;
+		/*const close:int = 8;
 		startOffset = Math.max(0, offsetAtMouse() - 1);
 		selectMode = 'new';
 		if (emptySelection()) {
@@ -588,7 +589,7 @@ public class WaveformView extends Sprite implements DragClient {
 			if (Math.abs(startOffset - selectionStart) < close) selectMode = 'start';
 			else if (Math.abs(startOffset - selectionEnd) < close) selectMode = 'end';
 		}
-		dragMove(evt);
+		dragMove(evt);*/
 	}
 
 	private function emptySelection():Boolean { return (selectionEnd - selectionStart) <= 1 }
@@ -618,13 +619,15 @@ public class WaveformView extends Sprite implements DragClient {
 	public function dragEnd(evt:MouseEvent):void { selectMode = null }
 
 	private function offsetAtMouse():int {
-		var localX:int = globalToLocal(new Point(stage.mouseX, 0)).x;
-		return clipTo(scrollStart + localX, 0, condensedSamples.length);
+	return 0;
+		//var localX:int = globalToLocal(new Point(stage.mouseX, 0)).x;
+		//return clipTo(scrollStart + localX, 0, condensedSamples.length);
 	}
 
 	private function mousePastEnd():Boolean {
-		var localX:int = globalToLocal(new Point(stage.mouseX, 0)).x;
-		return (scrollStart + localX) > condensedSamples.length;
+	return 0;
+		//var localX:int = globalToLocal(new Point(stage.mouseX, 0)).x;
+		//return (scrollStart + localX) > condensedSamples.length;
 	}
 
 	/* Stepping */
@@ -639,11 +642,11 @@ public class WaveformView extends Sprite implements DragClient {
 		}
 		if (soundChannel) {
 			// update the play cursor while playing
-			var cursorOffset:int = playStart + ((soundChannel.position * samplingRate) / (1000 * samplesPerCondensedSample));
+			/*var cursorOffset:int = playStart + ((soundChannel.position * samplingRate) / (1000 * samplesPerCondensedSample));
 			cursorOffset = Math.min(cursorOffset, condensedSamples.length);
 			if (cursorOffset < scrollStart) scrollTo(cursorOffset);
 			if (cursorOffset >= (scrollStart + frame.width)) scrollTo(cursorOffset);
-			playCursor.x = clipTo(cursorOffset - scrollStart + 1, 1, frame.width - 1);
+			playCursor.x = clipTo(cursorOffset - scrollStart + 1, 1, frame.width - 1);*/
 		}
 	}
 

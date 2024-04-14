@@ -68,13 +68,13 @@ public class MP3SoundPlayer extends ScratchSoundPlayer {
 
 	private function startChannel(doneFunction:Function):void {
 		var flashSnd:Sound = new Sound();
-		flashSnd.addEventListener(SampleDataEvent.SAMPLE_DATA, writeSampleData);
+		//flashSnd.addEventListener(SampleDataEvent.SAMPLE_DATA, writeSampleData);
 		soundChannel = flashSnd.play();
 		isLoading = false;
 		if (doneFunction != null) soundChannel.addEventListener(Event.SOUND_COMPLETE, doneFunction);
 	}
 
-	private function writeSampleData(evt:SampleDataEvent):void {
+	/*private function writeSampleData(evt:SampleDataEvent):void {
 		var buf:ByteArray = new ByteArray();
 		var n:int = mp3Sound.extract(buf, 4096);
 		buf.position = 0;
@@ -86,6 +86,6 @@ public class MP3SoundPlayer extends ScratchSoundPlayer {
 			soundChannel = null; // don't explicitly stop the sound channel in this callback; allow it to stop on its own
 			stopPlaying();
 		}
-	}
+	}*/
 
 }}

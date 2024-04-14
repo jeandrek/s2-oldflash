@@ -117,7 +117,7 @@ public class WAVFile {
 		return result;
 	}
 
-	public static function extractSamples(waveData:ByteArray):Vector.<int> {
+	/* public static function extractSamples(waveData:ByteArray):Vector.<int> {
 		var result:Vector.<int> = new Vector.<int>();
 		var info:Object = WAVFile.decode(waveData);
 		var i:int;
@@ -143,7 +143,7 @@ public class WAVFile {
 			while (samples.bytesAvailable >= 2) result.push(samples.readShort());
 		}
 		return result;
-	}
+	}*/
 
 	private static function extractChunk(desiredType:String, waveData:ByteArray):ByteArray {
 		// Return the contents of the first chunk of the given type or an empty ByteArray if it is not found.

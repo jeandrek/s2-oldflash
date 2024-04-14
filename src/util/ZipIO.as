@@ -109,7 +109,7 @@ public class ZipIO {
 		e.name = fileName;
 		e.data = new ByteArray();
 		if (compressedSize > 0) buf.readBytes(e.data, 0, compressedSize);
-		if (compressionMethod == 8) e.data.inflate();
+		//if (compressionMethod == 8) e.data.inflate();
 		if (e.data.length != uncompressedSize) throw Error("Bad uncompressed size");
 		if (crc != computeCRC(e.data)) throw Error("Bad CRC");
 	}
@@ -207,8 +207,8 @@ public class ZipIO {
 		e.size = e.data.length;
 		e.crc = computeCRC(e.data);
 		if (useCompression) {
-			e.compressionMethod = 8;
-			e.data.deflate();
+			e.compressionMethod = 0;
+			//e.data.deflate();
 		}
 		e.compressedSize = e.data.length;
 		entries.push(e); // record the entry so it can be saved in the directory

@@ -91,7 +91,7 @@ public class Translator {
 			var file:FileReference = FileReference(e.target);
 			var i:int = file.name.lastIndexOf('.');
 			var langName:String = file.name.slice(0, i);
-			var data:ByteArray = file.data;
+			var data:ByteArray = null; //file.data;
 			if (data) {
 				dictionary = parsePOData(data);
 				setFontsFor(langName);

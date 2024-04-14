@@ -69,7 +69,7 @@ public class CursorTool {
 		// Hide the current cursor and revert to using the hardware cursor.
 		if (currentCursor && currentCursor.parent) currentCursor.parent.removeChild(currentCursor);
 		currentCursor = null;
-		Mouse.cursor = MouseCursor.AUTO;
+		//Mouse.cursor = MouseCursor.AUTO;
 		Mouse.show();
 	}
 
@@ -99,7 +99,7 @@ public class CursorTool {
 		}
 	}
 
-	private static function mouseLeave(ignore:*):void { Mouse.cursor = MouseCursor.AUTO; Mouse.show() }
+	private static function mouseLeave(ignore:*):void {/* Mouse.cursor = MouseCursor.AUTO; */ Mouse.show() }
 
 	public static function setCustomCursor(name:String, bmp:BitmapData = null, hotSpot:Point = null, reuse:Boolean = true):void {
 		const standardCursors:Array = ['arrow', 'auto', 'button', 'hand', 'ibeam'];
@@ -107,7 +107,7 @@ public class CursorTool {
 		if (tool) return; // don't let point editor cursors override top bar tools
 
 		hideSoftwareCursor();
-		if (standardCursors.indexOf(name) != -1) { Mouse.cursor = name; return; }
+		if (standardCursors.indexOf(name) != -1) { /*Mouse.cursor = name;*/ return; }
 
 		if (('' == name) && !reuse) {
 			// disposable cursors for bitmap pen and eraser (sometimes they are too large for hardware cursor)
@@ -118,7 +118,7 @@ public class CursorTool {
 		var saved:Array = registeredCursors[name];
 		if (saved && reuse) {
 			if (isLinux()) showSoftwareCursor(new Bitmap(saved[0]), saved[1].x, saved[1].y);
-			else Mouse.cursor = name; // use previously registered hardware cursor
+			else /*Mouse.cursor = name;*/ // use previously registered hardware cursor
 			return;
 		}
 
@@ -137,13 +137,13 @@ public class CursorTool {
 	}
 
 	private static function registerHardwareCursor(name:String, bmp:BitmapData, hotSpot:Point):void {
-		var images:Vector.<BitmapData> = new Vector.<BitmapData>(1, true);
-		images[0] = bmp;
+		/* var images:Vector.<BitmapData> = new Vector.<BitmapData>(1, true);
+		images[0] = bmp; */
 
-		var cursorData:MouseCursorData = new MouseCursorData();
+		/* var cursorData:MouseCursorData = new MouseCursorData();
 		cursorData.data = images;
 		cursorData.hotSpot = hotSpot;
-		Mouse.registerCursor(name, cursorData);
+		Mouse.registerCursor(name, cursorData); */
 	}
 
 }}

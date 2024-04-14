@@ -36,8 +36,8 @@ import flash.display.Sprite;
 import flash.geom.*;
 import flash.utils.ByteArray;
 import util.Base64Encoder;
-import by.blooddy.crypto.image.PNG24Encoder;
-import by.blooddy.crypto.image.PNGFilter;
+//import by.blooddy.crypto.image.PNG24Encoder;
+//import by.blooddy.crypto.image.PNGFilter;
 
 public class SVGExport {
 
@@ -119,10 +119,10 @@ public class SVGExport {
 		if (el.bitmap == null) return;
 		const attrList:Array = ['x', 'y', 'width', 'height', 'opacity', 'scratch-type'];
 		var node:XML = createNode(el, attrList);
-		var pixels:ByteArray = PNG24Encoder.encode(el.bitmap, PNGFilter.PAETH);
+		/*var pixels:ByteArray = PNG24Encoder.encode(el.bitmap, PNGFilter.PAETH);
 		node.@['xlink:href'] = 'data:image/png;base64,' + Base64Encoder.encode(pixels);
 		setTransform(el, node);
-		xml.appendChild(node);
+		xml.appendChild(node);*/
 	}
 
 	private function addPathNodeTo(el:SVGElement, xml:XML):void {

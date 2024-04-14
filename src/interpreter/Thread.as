@@ -42,7 +42,7 @@ public class Thread {
 	public var args:Array;			// arguments to a user-defined procedure
 
 	// the stack
-	private var stack:Vector.<StackFrame>;
+	private var stack:Array;
 	private var sp:int;
 
 	public function Thread(b:Block, targetObj:*, startupDelay:int = 0) {
@@ -87,7 +87,7 @@ public class Thread {
 
 	public function stop():void {
 		block = null;
-		stack = new Vector.<StackFrame>(4);
+		stack = new Array(4);
 		stack[0] = new StackFrame();
 		stack[1] = new StackFrame();
 		stack[2] = new StackFrame();

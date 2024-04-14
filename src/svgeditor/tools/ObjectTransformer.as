@@ -501,7 +501,7 @@ package svgeditor.tools  {
 					editor.setCurrentCursor('rotateCursor', 'rotateCursor', new Point(10, 13));
 					break;
 				case HT_MOVER:
-					editor.setCurrentCursor(MouseCursor.HAND);
+					//editor.setCurrentCursor(MouseCursor.HAND);
 					break;
 			}
 		}

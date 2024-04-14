@@ -114,7 +114,7 @@ public class ScratchSoundPlayer {
 		nextSample = getSample();
 
 		var flashSnd:Sound = new Sound();
-		flashSnd.addEventListener(SampleDataEvent.SAMPLE_DATA, writeSampleData);
+		//flashSnd.addEventListener(SampleDataEvent.SAMPLE_DATA, writeSampleData);
 		soundChannel = flashSnd.play();
 		if (soundChannel) {
 			if (doneFunction != null) soundChannel.addEventListener(Event.SOUND_COMPLETE, doneFunction);
@@ -148,7 +148,7 @@ public class ScratchSoundPlayer {
 		bytePosition = endOffset;
 	}
 
-	private function writeSampleData(evt:SampleDataEvent):void {
+	/*private function writeSampleData(evt:SampleDataEvent):void {
 		var i:int;
 		if ((lastBufferTime != 0) && ((getTimer() - lastBufferTime) > 230)) {
 			soundChannel = null; // don't explicitly stop the sound channel in this callback; allow it to stop on its own
@@ -165,7 +165,7 @@ public class ScratchSoundPlayer {
 		if ((bytePosition >= endOffset) && (lastBufferTime == 0)) {
 			lastBufferTime = getTimer();
 		}
-	}
+	}*/
 
 	protected function interpolatedSample():Number {
 		fraction += stepSize;

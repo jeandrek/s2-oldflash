@@ -81,7 +81,7 @@ public class Primitives {
 		new LooksPrims(app, interp).addPrimsTo(primTable);
 		new MotionAndPenPrims(app, interp).addPrimsTo(primTable);
 		new SoundPrims(app, interp).addPrimsTo(primTable);
-		new VideoMotionPrims(app, interp).addPrimsTo(primTable);
+		//new VideoMotionPrims(app, interp).addPrimsTo(primTable);
 		addOtherPrims(primTable);
 	}
 

@@ -32,7 +32,7 @@ public class MP3Loader {
 		// Attempt to convert the given mp3 data into a ScratchSound (encoded as a WAV file).
 		// Call whenDone with the new sound if successful.
 		function loaded(mp3Snd:Sound):void {
-			extractSamples(sndName, mp3Snd, mp3Info.sampleCount, whenDone);
+			//extractSamples(sndName, mp3Snd, mp3Info.sampleCount, whenDone);
 		}
 		var mp3Info:Object = new MP3FileReader(sndData).getInfo();
 		if (mp3Info.sampleCount == 0) { // bad MP3 data
@@ -42,7 +42,7 @@ public class MP3Loader {
 		}
 		load(sndData, loaded);
 	}
-
+/*
 	public static function extractSamples(sndName:String, mp3Snd:Sound, mp3SampleCount:int, whenDone:Function):void {
 		// Extract the samples from the given mp3 Sound object and convert them into
 		// a ScratchSound object, merging stereo channels and downsampling to 22050 samples/second
@@ -83,7 +83,7 @@ public class MP3Loader {
 		mp3Snd.extract(buf, 0, 0); // start at the beginning
 		convertNextChunk();
 	}
-
+*/
 	public static function load(mp3Data:ByteArray, whenDone:Function):void {
 		function done(snd:Sound):void {
 			mp3Data.endian = originalEndian;
@@ -155,7 +155,7 @@ public class MP3Loader {
 		swfBytes.position = 0;
 
 		var loaderContext: LoaderContext = new LoaderContext();
-		if (Capabilities.playerType == 'Desktop') loaderContext.allowLoadBytesCodeExecution = true;
+		/* if (Capabilities.playerType == 'Desktop') loaderContext.allowLoadBytesCodeExecution = true; */
 		var swfBytesLoader:Loader = new Loader();
 		swfBytesLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, swfCreated);
 		swfBytesLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event):void { whenDone(null); });

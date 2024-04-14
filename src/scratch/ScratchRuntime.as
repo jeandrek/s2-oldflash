@@ -32,7 +32,6 @@ import flash.utils.*;
 import blocks.Block;
 import blocks.BlockArg;
 import interpreter.*;
-import primitives.VideoMotionPrims;
 import sound.ScratchSoundPlayer;
 import translation.*;
 import ui.media.MediaInfo;
@@ -45,7 +44,6 @@ public class ScratchRuntime {
 
 	public var app:Scratch;
 	public var interp:Interpreter;
-	public var motionDetector:VideoMotionPrims;
 	public var keyIsDown:Array = new Array(128); // records key up/down state
 	public var shiftIsDown:Boolean;
 	public var lastAnswer:String = '';
@@ -80,7 +78,7 @@ public class ScratchRuntime {
 
 		if (recording) saveFrame(); // Recording a YouTube video?  Old / Unused currently.
 		app.extensionManager.step();
-		if (motionDetector) motionDetector.step(); // Video motion detection
+		//if (motionDetector) motionDetector.step(); // Video motion detection
 
 		// Step the stage, sprites, and watchers
 		app.stagePane.step(this);
@@ -116,7 +114,7 @@ public class ScratchRuntime {
 	public function clearRecording():void {
 		recording = false;
 		frames = [];
-		System.gc();
+		/* System.gc(); */
 		trace('mem: ' + System.totalMemory);
 	}
 
@@ -131,7 +129,7 @@ public class ScratchRuntime {
 		}
 		frames = [];
 		trace('data: ' + data.length);
-		new FileReference().save(data, 'movie.flv');
+		//new FileReference().save(data, 'movie.flv');
 	}
 
 //----------
@@ -150,7 +148,7 @@ public class ScratchRuntime {
 		}
 		clearAskPrompts();
 		app.removeLoadProgressBox();
-		motionDetector = null;
+		//motionDetector = null;
 	}
 
 	// -----------------------------
@@ -284,8 +282,7 @@ public class ScratchRuntime {
 			var sensorName:String = interp.arg(hat, 0);
 			var threshold:Number = interp.numarg(hat, 1);
 			if (('loudness' == sensorName && soundLevel() > threshold) ||
-					('timer' == sensorName && timer() > threshold) ||
-					('video motion' == sensorName && target.visible && VideoMotionPrims.readMotionSensor('motion', target) > threshold)) {
+					('timer' == sensorName && timer() > threshold)) {
 				if (triggeredHats.indexOf(hat) == -1) { // not already trigged
 					// only start the stack if it is not already running
 					if (!interp.isRunning(hat, target)) interp.toggleThread(hat, target);
@@ -372,11 +369,11 @@ public class ScratchRuntime {
 		// Prompt user for a file name and load that file.
 		var fileName:String, data:ByteArray;
 		function fileLoadHandler(event:Event):void {
-			var file:FileReference = FileReference(event.target);
+			/*var file:FileReference = FileReference(event.target);
 			fileName = file.name;
 			data = file.data;
 			if (app.stagePane.isEmpty()) doInstall();
-			else DialogBox.confirm('Replace contents of the current project?', app.stage, doInstall);
+			else DialogBox.confirm('Replace contents of the current project?', app.stage, doInstall);*/
 		}
 		function doInstall(ignore:* = null):void {
 			installProjectFromFile(fileName, data);
@@ -421,7 +418,6 @@ public class ScratchRuntime {
 			try { info = reader.readInfo() } catch (e:Error) { data.position = 0 }
 			try { objTable = reader.readObjTable() } catch (e:Error) { }
 			if (!objTable) {
-				projectLoadFailed();
 				return;
 			}
 			newProject = new OldProjectReader().extractProject(objTable);
@@ -435,7 +431,7 @@ public class ScratchRuntime {
 
 	public function projectLoadFailed(ignore:* = null):void {
 		app.removeLoadProgressBox();
-		//DialogBox.notify('Error!', 'Project did not load.', app.stage);
+		DialogBox.notify('Error!', 'Project did not load.', app.stage);
 		app.loadProjectFailed();
 	}
 

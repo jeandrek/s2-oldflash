@@ -56,7 +56,7 @@ public class ListWatcher extends Sprite {
 	private var cellNumPool:Array = []; // recycled cell numbers
 	private var tempCellNum:TextField; // used to compute maximum cell number width
 
-	private var lastAccess:Vector.<uint> = new Vector.<uint>();
+	private var lastAccess:Array = new Array();
 	private var lastActiveIndex:int;
 	private var contentsChanged:Boolean;
 	private var isIdle:Boolean;
@@ -133,9 +133,9 @@ public class ListWatcher extends Sprite {
 		// Prompt user for a file name and import that file.
 		// Each line of the file becomes a list item.
 		function fileLoaded(event:Event):void {
-			var file:FileReference = FileReference(event.target);
+			/*var file:FileReference = FileReference(event.target);
 			var s:String = file.data.readUTFBytes(file.data.length);
-			importLines(removeTrailingEmptyLines(s.split(/\r\n|[\r\n]/)));
+			importLines(removeTrailingEmptyLines(s.split(/\r\n|[\r\n]/)));*/
 		}
 
 		Scratch.loadSingleFile(fileLoaded);
@@ -144,7 +144,7 @@ public class ListWatcher extends Sprite {
 	private function exportList():void {
 		var file:FileReference = new FileReference();
 		var s:String = contents.join('\n') + '\n';
-		file.save(s, listName + '.txt');
+		//file.save(s, listName + '.txt');
 	}
 
 	private function hide():void {
@@ -288,7 +288,7 @@ public class ListWatcher extends Sprite {
 		// Ensure that lastAccess is the same length as contents.
 		if (lastAccess.length == contents.length) return;
 		if (lastAccess.length < contents.length) {
-			lastAccess = lastAccess.concat(new Vector.<uint>(contents.length - lastAccess.length));
+			lastAccess = lastAccess.concat(new Array(contents.length - lastAccess.length));
 		} else if (lastAccess.length > contents.length) {
 			lastAccess = lastAccess.slice(0, contents.length);
 		}

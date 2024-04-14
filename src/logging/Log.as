@@ -27,7 +27,7 @@ public class Log {
 	// Should the logger echo log entries to JavaScript?
 	public var echoToJS:Boolean = true;
 
-	public const logBuffer:Vector.<LogEntry> = new <LogEntry>[];
+	public const logBuffer:Array = new Array();
 
 	private var fixedBuffer:Boolean;
 	private var nextIndex:uint;

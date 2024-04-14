@@ -89,16 +89,16 @@ public class BlockColorEditor extends Sprite {
 			if (fileList.fileList.length == 0) return;
 			var file:FileReference = FileReference(fileList.fileList[0]);
 			file.addEventListener(Event.COMPLETE, fileLoaded);
-			file.load();
+			//file.load();
 		}
 		function fileLoaded(event:Event):void {
-			var data:ByteArray = FileReference(event.target).data;
+			/*var data:ByteArray = FileReference(event.target).data;
 			var colors:Object = util.JSON.parse(data.toString());
 			for (var k:String in colors) {
  				setCategoryColor(k, colors[k]);
 			}
 			selectCategory(categoryName.text);
- 			Scratch.app.translationChanged();
+ 			Scratch.app.translationChanged();*/
  		}
 		var fileList:FileReferenceList = new FileReferenceList();
 		fileList.addEventListener(Event.SELECT, fileSelected);
@@ -111,7 +111,7 @@ public class BlockColorEditor extends Sprite {
 			if (r[0] != 0) s += '  "' + r[1] + '": 0x' + r[2].toString(16) + ',\n';
 		}
 		s = s.slice(0, s.length - 2) + '\n}\n'; // remove final comma
-		new FileReference().save(s, 'scratch.colors');
+		//new FileReference().save(s, 'scratch.colors');
 	}
 
 	private function addCategorySelector():void {

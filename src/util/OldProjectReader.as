@@ -23,6 +23,7 @@ package util {
 	import interpreter.Variable;
 	import scratch.*;
 	import watchers.*;
+	import uiwidgets.*;
 
 public class OldProjectReader {
 

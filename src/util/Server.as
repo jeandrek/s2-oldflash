@@ -26,7 +26,7 @@
 // if the operation succeeded or null if it failed.
 
 package util {
-import by.blooddy.crypto.serialization.JSON;
+//import by.blooddy.crypto.serialization.JSON;
 
 import flash.display.BitmapData;
 import flash.display.Loader;
@@ -48,7 +48,7 @@ import flash.utils.ByteArray;
 
 import logging.LogLevel;
 
-import mx.utils.URLUtil;
+//import mx.utils.URLUtil;
 
 public class Server implements IServer {
 
@@ -60,7 +60,7 @@ public class Server implements IServer {
 		// Accept URL overrides from the flash variables
 		try {
 			var urlOverrides:String = Scratch.app.loaderInfo.parameters['urlOverrides'];
-			if (urlOverrides) overrideURLs(by.blooddy.crypto.serialization.JSON.decode(urlOverrides));
+			//if (urlOverrides) overrideURLs(by.blooddy.crypto.serialization.JSON.decode(urlOverrides));
 		} catch (e:*) {
 		}
 	}
@@ -71,7 +71,7 @@ public class Server implements IServer {
 	public function overrideURLs(overrides:Object):void {
 		var forceProtocol:String;
 		var swfURL:String = Scratch.app.loaderInfo.url;
-		if (swfURL && URLUtil.isHttpURL(swfURL)) { // "isHttpURL" is true if the protocol is either HTTP or HTTPS
+		/*if (swfURL && URLUtil.isHttpURL(swfURL)) { // "isHttpURL" is true if the protocol is either HTTP or HTTPS
 			forceProtocol = URLUtil.getProtocol(swfURL);
 		}
 		for (var name:String in overrides) {
@@ -84,7 +84,7 @@ public class Server implements IServer {
 
 				URLs[name] = url;
 			}
-		}
+		}*/
 	}
 
 	protected function getCdnStaticSiteURL():String {

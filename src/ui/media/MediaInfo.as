@@ -413,14 +413,14 @@ public class MediaInfo extends Sprite {
 		mycostume.prepareToSave();
 		var ext:String = ScratchCostume.fileExtension(mycostume.baseLayerData);
 		var defaultName:String = mycostume.costumeName + ext;
-		new FileReference().save(mycostume.baseLayerData, defaultName);
+		//new FileReference().save(mycostume.baseLayerData, defaultName);
 	}
 
 	private function exportSound():void {
 		if (!mysound) return;
 		mysound.prepareToSave();
 		var defaultName:String = mysound.soundName + '.wav';
-		new FileReference().save(mysound.soundData, defaultName);
+		//new FileReference().save(mysound.soundData, defaultName);
 	}
 
 	protected function getBackpack():UIPart {

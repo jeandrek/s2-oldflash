@@ -143,7 +143,7 @@ public class ExtensionDevManager extends ExtensionManager {
 				self.localFileDirty = true;
 				clearInterval(self.localFilePoller);
 				// Shutdown the extension
-				self.localFileRef.load();
+				//self.localFileRef.load();
 			}
 		}, 200);
 
@@ -167,7 +167,7 @@ public class ExtensionDevManager extends ExtensionManager {
 		localFileDirty = false;
 		rawExtensionLoaded = false;
 		localExtCodeDate = localFileRef.modificationDate;
-		app.externalCall('ScratchExtensions.loadLocalJS', null, localFileRef.data.toString());
+		//app.externalCall('ScratchExtensions.loadLocalJS', null, localFileRef.data.toString());
 //		if(!rawExtensionLoaded)
 //			DialogBox.notify('Extensions', 'There was a problem loading your extension code. Please check your javascript console and fix the code.');
 

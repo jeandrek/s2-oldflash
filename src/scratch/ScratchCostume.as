@@ -44,9 +44,9 @@ package scratch {
 	import flash.utils.*;
 	import svgutils.*;
 	import util.*;
-	import by.blooddy.crypto.MD5;
-	import by.blooddy.crypto.image.PNG24Encoder;
-	import by.blooddy.crypto.image.PNGFilter;
+	//import by.blooddy.crypto.MD5;
+	//import by.blooddy.crypto.image.PNG24Encoder;
+	//import by.blooddy.crypto.image.PNGFilter;
 
 public class ScratchCostume {
 
@@ -315,9 +315,9 @@ public class ScratchCostume {
 		m.scale(image.width / r.width, image.height / r.height);
 		image.draw(dispObj, m);
 
-		var L:Vector.<Point> = new Vector.<Point>(image.height); //stack of left-side hull;
-		var R:Vector.<Point> = new Vector.<Point>(image.height); //stack of right side hull;
-		//var H:Vector.<Point> = new Vector.<Point>();
+		var L:Array = new Array(image.height); //stack of left-side hull;
+		var R:Array = new Array(image.height); //stack of right side hull;
+		//var H:Array = new Array();
 		var H:Array = [];
 		var rr:int=-1, ll:int=-1;
 		var Q:Point = new Point();
@@ -418,7 +418,7 @@ public class ScratchCostume {
 
 	private function cloneSprite(spr:Sprite):Sprite {
 		var clone:Sprite = new Sprite();
-		clone.graphics.copyFrom(spr.graphics);
+		//clone.graphics.copyFrom(spr.graphics);
 		clone.x = spr.x;
 		clone.y = spr.y;
 		clone.scaleX = spr.scaleX;
@@ -431,7 +431,7 @@ public class ScratchCostume {
 				clone.addChild(cloneSprite(dispObj as Sprite));
 			else if(dispObj is Shape) {
 				var shape:Shape = new Shape();
-				shape.graphics.copyFrom((dispObj as Shape).graphics);
+				//shape.graphics.copyFrom((dispObj as Shape).graphics);
 				shape.transform = dispObj.transform;
 				clone.addChild(shape);
 			}
@@ -574,12 +574,12 @@ public class ScratchCostume {
 		if (oldComposite) computeTextLayer();
 		if (baseLayerID == WasEdited) baseLayerMD5 = null; // costume was edited; recompute hash
 		baseLayerID = textLayerID = -1;
-		if (baseLayerData == null) baseLayerData = PNG24Encoder.encode(baseLayerBitmap, PNGFilter.PAETH);
+		/*if (baseLayerData == null) baseLayerData = PNG24Encoder.encode(baseLayerBitmap, PNGFilter.PAETH);
 		if (baseLayerMD5 == null) baseLayerMD5 = by.blooddy.crypto.MD5.hashBytes(baseLayerData) + fileExtension(baseLayerData);
 		if (textLayerBitmap != null) {
 			if (textLayerData == null) textLayerData = PNG24Encoder.encode(textLayerBitmap, PNGFilter.PAETH);
 			if (textLayerMD5 == null) textLayerMD5 = by.blooddy.crypto.MD5.hashBytes(textLayerData) + '.png';
-		}
+		}*/
 	}
 
 	private function computeTextLayer():void {

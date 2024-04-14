@@ -385,8 +385,8 @@ public dynamic class SVGPath extends Array {
 
 	public static function render(el:SVGElement, g:Graphics, forHitTest:Boolean = false):void {
 		if (!el.path || el.path.length == 0) return;
-		var cmds:Vector.<int> = new Vector.<int>;
-		var points:Vector.<Number> = new Vector.<Number>;
+		var cmds:Array = new Array();
+		var points:Array = new Array();
 		var lastX:Number = 0, lastY:Number = 0;
 		var lastMove:Point = new Point();
 		setBorderAndFill(g, el, gradientBoxForPath(el.path), forHitTest);
@@ -400,6 +400,7 @@ public dynamic class SVGPath extends Array {
 						new Point(cmd[5], cmd[6]),
 						cmds, points);
 					break;
+/*
 				case 'L':
 					cmds.push(GraphicsPathCommand.LINE_TO);
 					points.push(cmd[1], cmd[2]);
@@ -417,18 +418,19 @@ public dynamic class SVGPath extends Array {
 					cmds.push(GraphicsPathCommand.LINE_TO);
 					points.push(lastMove.x, lastMove.y);
 					break;
+			*/
 			}
 			lastX = cmd[cmd.length - 2];
 			lastY = cmd[cmd.length - 1];
 		}
 
 		var fillRule:String = (el.getAttribute('fill-rule', 'nonzero') == 'nonzero') ? 'nonZero' : 'evenOdd';
-		g.drawPath(cmds, points, fillRule);
+		//g.drawPath(cmds, points, fillRule);
 		g.endFill();
 //		debugDrawPoints(el.path, g);
 	}
 
-	public static function drawCubicBezier(g:Graphics, p0:Point, p1:Point, p2:Point, p3:Point, cmds:Vector.<int>, points:Vector.<Number>):void {
+	public static function drawCubicBezier(g:Graphics, p0:Point, p1:Point, p2:Point, p3:Point, cmds:Array, points:Array):void {
 		// Approximate a a cubic Bezier with four quadratic ones.
 		// Based on Timothee Groleau's Bezier_lib.as - v1.2, 19/05/02, which
 		// uses a simplified version of the midPoint algorithm by Helen Triolo.
@@ -463,7 +465,7 @@ public dynamic class SVGPath extends Array {
 
 		// draw the four quadratic subsegments
 		if(cmds) {
-			cmds.push(
+			/*cmds.push(
 				GraphicsPathCommand.CURVE_TO,
 				GraphicsPathCommand.CURVE_TO,
 				GraphicsPathCommand.CURVE_TO,
@@ -472,7 +474,7 @@ public dynamic class SVGPath extends Array {
 				pc1.x, pc1.y, pa1.x, pa1.y,
 				pc2.x, pc2.y, pa2.x, pa2.y,
 				pc3.x, pc3.y, pa3.x, pa3.y,
-				pc4.x, pc4.y, p3.x, p3.y);
+				pc4.x, pc4.y, p3.x, p3.y);*/
 		} else if(g) {
 			g.curveTo(pc1.x, pc1.y, pa1.x, pa1.y);
 			g.curveTo(pc2.x, pc2.y, pa2.x, pa2.y);

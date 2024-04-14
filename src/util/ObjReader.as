@@ -271,22 +271,22 @@ public class ObjReader {
 				var depth:int	= fields[2];
 
 				var rect:Rectangle = new Rectangle(0, 0, w, h);
-				var raster:Vector.<uint> = decodePixels(objTable[fields[4].index][0], (depth == 32));
+				var raster:Array = decodePixels(objTable[fields[4].index][0], (depth == 32));
 				var bmpData:BitmapData = new BitmapData(w, h);
 
 				if (depth <= 8) {
-					var colormap:Vector.<uint> = (depth == 1) ? defaultOneBitColorMap : defaultColorMap;
+					var colormap:Array = (depth == 1) ? defaultOneBitColorMap : defaultColorMap;
 					if (fields[5] != null) {
 						var colors:Array = objTable[fields[5].index][0];
 						colormap = buildCustomColormap(depth, colors);
 					}
-					bmpData.setVector(rect, unpackPixels(raster, w, h, depth, colormap));
+					//bmpData.setArray(rect, unpackPixels(raster, w, h, depth, colormap));
 				}
 				if (depth == 16) {
-					bmpData.setVector(rect, raster16to32(raster, w, h));
+					//bmpData.setArray(rect, raster16to32(raster, w, h));
 				}
 				if (depth == 32) {
-					bmpData.setVector(rect, raster);
+					//bmpData.setArray(rect, raster);
 				}
 				objTable[i][0] = bmpData;
 			}
@@ -451,10 +451,10 @@ public class ObjReader {
 		return out;
 	}
 
-	private function decodePixels(data:Object, addAlpha:Boolean):Vector.<uint> {
-		var result:Vector.<uint>, i:int, w:uint;
+	private function decodePixels(data:Object, addAlpha:Boolean):Array {
+		var result:Array, i:int, w:uint;
 		if (data is Array) {
-			result = Vector.<uint>(data); // already an array (uncompressed pixel data)
+			result = (data) as Array; // already an array (uncompressed pixel data)
 			if (addAlpha) {
 				for (i = 0; i < result.length; i++) {
 					if ((w = result[i]) != 0) result[i] = 0xFF000000 | w;
@@ -465,7 +465,7 @@ public class ObjReader {
 
 		var s:ByteArray = ByteArray(data);
 		var n:uint = decodeInt(s);
-		result = new Vector.<uint>(n);
+		result = new Array(n);
 		i = 0;
 		while ((s.bytesAvailable > 0) && (i < n)) {
 			var runLengthAndCode:uint = decodeInt(s);
@@ -512,8 +512,8 @@ public class ObjReader {
 		return s.readUnsignedInt();
 	}
 
-	private function unpackPixels(words:Vector.<uint>, w:int, h:int, depth:int, colormap:Vector.<uint>):Vector.<uint> {
-		var result:Vector.<uint> = new Vector.<uint>(w * h);
+	private function unpackPixels(words:Array, w:int, h:int, depth:int, colormap:Array):Array {
+		var result:Array = new Array(w * h);
 		var span:int = words.length / h;
 		var mask:int = (1 << depth) - 1;
 		var pixels_per_word:int = 32 / depth;
@@ -534,8 +534,8 @@ public class ObjReader {
 		return result;
 	}
 
-	private function raster16to32(raster16:Vector.<uint>, w:int, h:int):Vector.<uint> {
-		var result:Vector.<uint> = new Vector.<uint>(2 * raster16.length);
+	private function raster16to32(raster16:Array, w:int, h:int):Array {
+		var result:Array = new Array(2 * raster16.length);
 		var shift:int, word:uint, pix:int;
 		var src:int, dst:int;
 		for (var y:int = 0; y < h; y++) {
@@ -559,18 +559,18 @@ public class ObjReader {
 		return result;
 	}
 
-	private function buildCustomColormap(depth:int, colors:Array):Vector.<uint> {
+	private function buildCustomColormap(depth:int, colors:Array):Array {
 		// a colormap is an array of ARGB ints
-		var result:Vector.<uint> = new Vector.<uint>(1 << depth);
+		var result:Array = new Array(1 << depth);
 		for (var i:int = 0; i < colors.length; i++) {
 			result[i] = objTable[colors[i].index][0];
 		}
 		return result;
 	}
 
-	private const defaultOneBitColorMap:Vector.<uint> = Vector.<uint>([0xFFFFFFFF, 0xFF000000]); // 0 -> white, 1 -> black
+	private const defaultOneBitColorMap:Array = [0xFFFFFFFF, 0xFF000000]; // 0 -> white, 1 -> black
 
-	private const defaultColorMap:Vector.<uint> = Vector.<uint>([
+	private const defaultColorMap:Array = [
 		0x00000000, 0xFF000000, 0xFFFFFFFF, 0xFF808080, 0xFFFF0000, 0xFF00FF00, 0xFF0000FF, 0xFF00FFFF,
 		0xFFFFFF00, 0xFFFF00FF, 0xFF202020, 0xFF404040, 0xFF606060, 0xFF9F9F9F, 0xFFBFBFBF, 0xFFDFDFDF,
 		0xFF080808, 0xFF101010, 0xFF181818, 0xFF282828, 0xFF303030, 0xFF383838, 0xFF484848, 0xFF505050,
@@ -602,7 +602,7 @@ public class ObjReader {
 		0xFFFFCC00, 0xFFFFFF00, 0xFFFF0033, 0xFFFF3333, 0xFFFF6633, 0xFFFF9933, 0xFFFFCC33, 0xFFFFFF33,
 		0xFFFF0066, 0xFFFF3366, 0xFFFF6666, 0xFFFF9966, 0xFFFFCC66, 0xFFFFFF66, 0xFFFF0099, 0xFFFF3399,
 		0xFFFF6699, 0xFFFF9999, 0xFFFFCC99, 0xFFFFFF99, 0xFFFF00CC, 0xFFFF33CC, 0xFFFF66CC, 0xFFFF99CC,
-		0xFFFFCCCC, 0xFFFFFFCC, 0xFFFF00FF, 0xFFFF33FF, 0xFFFF66FF, 0xFFFF99FF, 0xFFFFCCFF, 0xFFFFFFFF]);
+		0xFFFFCCCC, 0xFFFFFFCC, 0xFFFF00FF, 0xFFFF33FF, 0xFFFF66FF, 0xFFFF99FF, 0xFFFFCCFF, 0xFFFFFFFF];
 
 	private function classIDToName(id:int):String {
 		if (id == 9) return 'String';

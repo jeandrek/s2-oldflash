@@ -303,7 +303,7 @@ public class ScratchSprite extends ScratchObj {
 		cachedBounds = null;
 
 		if(!geomShape.parent) {
-			geomShape.graphics.copyFrom(currentCostume().getShape().graphics);
+			//geomShape.graphics.copyFrom(currentCostume().getShape().graphics);
 			var currDO:DisplayObject = img.getChildAt(0);
 			geomShape.scaleX = currDO.scaleX;
 			geomShape.scaleY = currDO.scaleY;
@@ -560,7 +560,7 @@ public class ScratchSprite extends ScratchObj {
 		var defaultName:String = objName + '.sprite2';
 		var file:FileReference = new FileReference();
 		file.addEventListener(Event.COMPLETE, success);
-		file.save(zipData, defaultName);
+		//file.save(zipData, defaultName);
 	}
 
 	public function copyToShare():ScratchSprite {

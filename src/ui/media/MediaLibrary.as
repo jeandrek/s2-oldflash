@@ -487,12 +487,12 @@ spriteFeaturesFilter.visible = false; // disable features filter for now
 			for (var j:int = 0; j < files.fileList.length; j++) {
 				var file:FileReference = FileReference(files.fileList[j]);
 				file.addEventListener(Event.COMPLETE, fileLoaded);
-				file.load();
+				//file.load();
 			}
 		}
 		function fileLoaded(e:Event):void {
 			var fRef:FileReference = e.target as FileReference;
-			if (fRef) convertAndUploadImageOrSprite(fRef.name, fRef.data)
+			//if (fRef) convertAndUploadImageOrSprite(fRef.name, fRef.data)
 		}
 		var costumeOrSprite:*;
 		var files:FileReferenceList = new FileReferenceList();
@@ -645,11 +645,11 @@ spriteFeaturesFilter.visible = false; // disable features filter for now
 			for (var j:int = 0; j < files.fileList.length; j++) {
 				var file:FileReference = FileReference(files.fileList[j]);
 				file.addEventListener(Event.COMPLETE, fileLoaded);
-				file.load();
+				//file.load();
 			}
 		}
 		function fileLoaded(e:Event):void {
-			convertAndUploadSound(FileReference(e.target).name, FileReference(e.target).data);
+			//convertAndUploadSound(FileReference(e.target).name, FileReference(e.target).data);
 		}
 		var files:FileReferenceList = new FileReferenceList();
 		files.addEventListener(Event.SELECT, fileSelected);

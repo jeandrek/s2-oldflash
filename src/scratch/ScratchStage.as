@@ -39,9 +39,9 @@ import uiwidgets.Menu;
 import ui.media.MediaInfo;
 import util.*;
 import watchers.*;
-import by.blooddy.crypto.image.PNG24Encoder;
-import by.blooddy.crypto.image.PNGFilter;
-import by.blooddy.crypto.MD5;
+//import by.blooddy.crypto.image.PNG24Encoder;
+//import by.blooddy.crypto.image.PNGFilter;
+//import by.blooddy.crypto.MD5;
 
 public class ScratchStage extends ScratchObj {
 
@@ -232,9 +232,9 @@ public class ScratchStage extends ScratchObj {
 	private function saveScreenshot():void {
 		var bitmapData:BitmapData = new BitmapData(STAGEW, STAGEH, true, 0);
 		bitmapData.draw(this);
-		var pngData:ByteArray = PNG24Encoder.encode(bitmapData, PNGFilter.PAETH);
+		//var pngData:ByteArray = PNG24Encoder.encode(bitmapData, PNGFilter.PAETH);
 		var file:FileReference = new FileReference();
-		file.save(pngData, 'stage.png');
+		//file.save(pngData, 'stage.png');
 	}
 
 	/* Scrolling support */
@@ -631,13 +631,14 @@ public class ScratchStage extends ScratchObj {
 		}
 
 		if (videoImage) videoImage.visible = true;
-		return PNG24Encoder.encode(bm);
+		//return PNG24Encoder.encode(bm);
+		return null;
 	}
 
 	public function savePenLayer():void {
 		penLayerID = -1;
-		penLayerPNG = PNG24Encoder.encode(penLayer.bitmapData, PNGFilter.PAETH);
-		penLayerMD5 = by.blooddy.crypto.MD5.hashBytes(penLayerPNG) + '.png';
+		//penLayerPNG = PNG24Encoder.encode(penLayer.bitmapData, PNGFilter.PAETH);
+		//penLayerMD5 = by.blooddy.crypto.MD5.hashBytes(penLayerPNG) + '.png';
 	}
 
 	public function clearPenLayer():void {

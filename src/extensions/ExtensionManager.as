@@ -26,7 +26,7 @@
 package extensions {
 import blocks.Block;
 
-import com.adobe.utils.StringUtil;
+//import com.adobe.utils.StringUtil;
 
 import flash.errors.IllegalOperationError;
 import flash.events.*;
@@ -36,7 +36,7 @@ import flash.utils.getTimer;
 
 import interpreter.*;
 
-import mx.utils.URLUtil;
+//import mx.utils.URLUtil;
 
 import uiwidgets.DialogBox;
 import uiwidgets.IndicatorLight;
@@ -274,10 +274,10 @@ public class ExtensionManager {
 					extensionRefused(extObj, 'Experimental extensions are only supported on ScratchX.');
 					continue;
 				}
-				if (!StringUtil.endsWith(URLUtil.getServerName(extObj.javascriptURL).toLowerCase(),'.github.io')) {
+				/*if (!StringUtil.endsWith(URLUtil.getServerName(extObj.javascriptURL).toLowerCase(),'.github.io')) {
 					extensionRefused(extObj, 'Experimental extensions must be hosted on GitHub Pages.');
 					continue;
-				}
+				}*/
 				ext.javascriptURL = extObj.javascriptURL;
 				ext.showBlocks = false;
 				if(extObj.id) ext.id = extObj.id;

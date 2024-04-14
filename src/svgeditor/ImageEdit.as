@@ -150,7 +150,7 @@ package svgeditor {
 			if(event.type == MouseEvent.MOUSE_OVER && currentCursor != null) {
 				CursorTool.setCustomCursor(currentCursor);
 			} else {
-				CursorTool.setCustomCursor(MouseCursor.AUTO);
+				//CursorTool.setCustomCursor(MouseCursor.AUTO);
 			}
 
 			// Capture mouse down before anyone else in case there is a global tool running
@@ -875,21 +875,21 @@ package svgeditor {
 
 		public function setCurrentCursor(name:String, bmp:* = null, hotSpot:Point = null, reuse:Boolean = true):void {
 			//trace('setting cursor to '+name);
-			if (name == null || [MouseCursor.HAND, MouseCursor.BUTTON].indexOf(name) > -1) {
+			/*if (name == null || [MouseCursor.HAND, MouseCursor.BUTTON].indexOf(name) > -1) {
 				currentCursor = (name == null ? MouseCursor.AUTO : name);
 				CursorTool.setCustomCursor(currentCursor);
 			} else {
 				if (bmp is String) bmp = Resources.createBmp(name).bitmapData;
 				CursorTool.setCustomCursor(name, bmp, hotSpot, reuse);
 				currentCursor = name;
-			}
+			}*/
 
 			// When needed for display, pass the alias to the existing cursor property
 			if (stage && workArea.getInteractionLayer().hitTestPoint(stage.mouseX, stage.mouseY, true) &&
 				!uiLayer.hitTestPoint(stage.mouseX, stage.mouseY, true)) {
 				CursorTool.setCustomCursor(currentCursor);
 			} else {
-				CursorTool.setCustomCursor(MouseCursor.AUTO);
+				//CursorTool.setCustomCursor(MouseCursor.AUTO);
 			}
 		}
 

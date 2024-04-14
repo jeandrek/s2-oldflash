@@ -93,7 +93,7 @@ public class TranslatableStrings {
 		for each (var k:String in keys) {
 			data += "\t  '" + dict[k] + "': '/help/studio/tips/blocks/FILENAME',\n";
 		}
-		new FileReference().save(data, 'helpScreens.txt');
+		//new FileReference().save(data, 'helpScreens.txt');
 	}
 
 	public static function exportUIStrings():void {
@@ -153,7 +153,7 @@ public class TranslatableStrings {
 		strings.sort(Array.CASEINSENSITIVE);
 		for each (var s:String in strings) data += s + '\n';
 		data += '\n';
-		new FileReference().save(data, defaultName + '.txt');
+		//new FileReference().save(data, defaultName + '.txt');
 		Scratch.app.translationChanged();
 	}
 
