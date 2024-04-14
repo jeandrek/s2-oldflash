@@ -27,3 +27,5 @@ JSON
 
 Scratch 2 and this port are free software under the GPLv2 (see COPYING, and
 README-scratch.md).
+
+For more information see [the forum topic](https://scratch.mit.edu/discuss/topic/754331/).
