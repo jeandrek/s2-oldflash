@@ -11,7 +11,7 @@ There is a precompiled SWF in `bin`
 link](https://github.com/jeandrek/s2-oldflash/raw/flash-9/bin/s2-flash9.swf)).  If you want to compile yourself, set `FLEX_HOME` in build.properties or
 local.properties, and place framework.swc from the Flex 2.0.1 SDK
 ([Adobe download link](https://helpx.adobe.com/x-productkb/multi/flex-2-0-1-hotfix.html))
-in this directory.  Flex also needs playerglobal.swc (also there).  Run `ant`
+in this directory.  Flex also needs playerglobal.swc (also in SDK).  Run `ant`
 to build.
 
 Apologies for the extremely messy commenting-out (may fix later).
