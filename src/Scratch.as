@@ -135,7 +135,7 @@ public class Scratch extends Sprite {
 
 	public function Scratch() {
 		SVGTool.setStage(stage);
-		loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+		/* loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler); */
 		app = this;
 
 		// This one must finish before most other queries can start, so do it separately
@@ -403,7 +403,7 @@ public class Scratch extends Sprite {
 	public function getPaletteBuilder():PaletteBuilder {
 		return new PaletteBuilder(this);
 	}
-
+/*
 	private function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
 		if (event.error is Error) {
 			var error:Error = event.error as Error;
@@ -414,7 +414,7 @@ public class Scratch extends Sprite {
 			log(LogLevel.ERROR, errorEvent.toString());
 		}
 	}
-
+*/
 	// All other log...() methods funnel to this one
 	public function log(severity:String, messageKey:String, extraData:Object = null):LogEntry {
 		return logger.log(severity, messageKey, extraData);
@@ -638,8 +638,9 @@ public class Scratch extends Sprite {
 				if (jsEnabled) externalCall('tip_bar_api.show');
 			}
 		}
+		setEditMode(true);
 		if (isOffline) {
-			stage.displayState = enterPresentation ? StageDisplayState.FULL_SCREEN_INTERACTIVE : StageDisplayState.NORMAL;
+			/* stage.displayState = enterPresentation ? StageDisplayState.FULL_SCREEN_INTERACTIVE : StageDisplayState.NORMAL; */
 		}
 		for each (var o:ScratchObj in stagePane.allObjects()) o.applyFilters();
 

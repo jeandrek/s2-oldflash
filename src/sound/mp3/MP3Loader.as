@@ -155,7 +155,7 @@ public class MP3Loader {
 		swfBytes.position = 0;
 
 		var loaderContext: LoaderContext = new LoaderContext();
-		if (Capabilities.playerType == 'Desktop') loaderContext.allowLoadBytesCodeExecution = true;
+		/* if (Capabilities.playerType == 'Desktop') loaderContext.allowLoadBytesCodeExecution = true; */
 		var swfBytesLoader:Loader = new Loader();
 		swfBytesLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, swfCreated);
 		swfBytesLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event):void { whenDone(null); });

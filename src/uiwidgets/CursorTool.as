@@ -140,10 +140,10 @@ public class CursorTool {
 		var images:Vector.<BitmapData> = new Vector.<BitmapData>(1, true);
 		images[0] = bmp;
 
-		var cursorData:MouseCursorData = new MouseCursorData();
+		/* var cursorData:MouseCursorData = new MouseCursorData();
 		cursorData.data = images;
 		cursorData.hotSpot = hotSpot;
-		Mouse.registerCursor(name, cursorData);
+		Mouse.registerCursor(name, cursorData); */
 	}
 
 }}
